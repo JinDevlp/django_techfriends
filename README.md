@@ -30,7 +30,7 @@
 <img src="./staticfiles/images/Screenshot 2022-12-06 at 3.41.13 PM.png">
 
 #Login Page
-<img src="./staticfiles/images/Screenshot 2022-12-06 at 3.41.13 PM.png">
+<img src="./staticfiles/images/Screenshot 2022-12-06 at 3.41.19 PM.png">
 
 Install python
 
