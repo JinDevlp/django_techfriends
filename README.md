@@ -1,5 +1,4 @@
 # django_techfriends
-Currently in process... 
 
 - Web application using Django
 - Will implement Django Rest Framework once completed. 
