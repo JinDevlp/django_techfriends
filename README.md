@@ -17,8 +17,7 @@
 ![HTML5](https://img.shields.io/static/v1?style=for-the-badge&message=HTML5&color=E34F26&logo=HTML5&logoColor=FFFFFF&label=)
 ![Bootstrap](https://img.shields.io/static/v1?style=for-the-badge&message=Bootstrap&color=7952B3&logo=Bootstrap&logoColor=FFFFFF&label=)
 ---
-![Alt text](<img width="1719" alt="Screenshot 2022-12-06 at 3 40 11 PM" src="https://user-images.githubusercontent.com/91814116/206031108-3d745714-fd5a-45cc-b38d-c05f534765ac.png">)
-## Getting started 
+<img src="./staticfiles/images/Screenshot 2022-12-06 at 3.40.11 PM.png">  
 
 Install python
 
