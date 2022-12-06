@@ -24,7 +24,14 @@
 <img src="./staticfiles/images/Screenshot 2022-12-06 at 3.40.38 PM.png">
 
 #Create Post Page
-<img src=".staticfiles/images/Screenshot 2022-12-06 at 3.40.51 PM.png">
+<img src="./staticfiles/images/Screenshot 2022-12-06 at 3.40.51 PM.png">
+
+#Register Page
+<img src="./staticfiles/images/Screenshot 2022-12-06 at 3.41.13 PM.png">
+
+#Login Page
+<img src="./staticfiles/images/Screenshot 2022-12-06 at 3.41.13 PM.png">
+
 Install python
 
 ```
