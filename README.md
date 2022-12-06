@@ -17,8 +17,11 @@
 ![HTML5](https://img.shields.io/static/v1?style=for-the-badge&message=HTML5&color=E34F26&logo=HTML5&logoColor=FFFFFF&label=)
 ![Bootstrap](https://img.shields.io/static/v1?style=for-the-badge&message=Bootstrap&color=7952B3&logo=Bootstrap&logoColor=FFFFFF&label=)
 ---
+# Home Page
 <img src="./staticfiles/images/Screenshot 2022-12-06 at 3.40.11 PM.png">  
 
+# Profile Page
+<img src="./staticfiles/images/Screenshot 2022-12-06 at 3.40.38 PM.png"
 Install python
 
 ```
