@@ -1,0 +1,130 @@
+{% load static %}
+
+<!-- Navbar -->
+
+<nav class="navbar position-fixed navbar-expand-lg navbar-light">
+  <div
+    class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
+  >
+    <a
+      href="{% url 'home' %}"
+      class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+    >
+      <img style="width: 250px" src="{% static 'images/logo4.png'%}" />
+    </a>
+    <ul
+      class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+      id="menu"
+    >
+      <li class="nav-item mb-4">
+        <a href="{% url 'home' %}" class="nav-link align-middle px-0">
+          <i class="fa-solid fa-house"></i>
+          <span class="ms-1 d-none d-sm-inline">Home</span>
+        </a>
+      </li>
+      <li class="nav-item mb-4">
+        <a href="#" class="nav-link px-0 align-middle">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span class="ms-1 d-none d-sm-inline">Search</span></a
+        >
+      </li>
+
+      <li class="nav-item dropdown mb-4">
+        <a
+          class="nav-link dropdown-toggle px-0 align-middle"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fa-regular fa-eye"></i>
+          <span class="ms-1 d-none d-sm-inline">Search Topic</span>
+        </a>
+        <ul class="dropdown-menu">
+          {% for item in category_menu%}
+          <li>
+            <a class="dropdown-item" href="{% url 'category' item %}"
+              >{{item}}</a
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+
+      {% if request.user.is_authenticated %}
+      <li class="nav-item mb-4">
+        <a href="#" class="nav-link px-0 align-middle">
+          <i class="fa-regular fa-envelope"></i>
+          <span class="ms-1 d-none d-sm-inline">Messages</span>
+        </a>
+      </li>
+      <li class="nav-item mb-4">
+        <a href="#" class="nav-link px-0 align-middle">
+          <i class="fa-regular fa-heart"></i>
+          <span class="ms-1 d-none d-sm-inline">Notifications</span>
+        </a>
+      </li>
+      <li class="nav-item mb-4">
+        <a href="{% url 'create-post'%}" class="nav-link px-0 align-middle">
+          <i class="fa-regular fa-square-plus"></i>
+          <span class="ms-1 d-none d-sm-inline">Create</span>
+        </a>
+      </li>
+
+      <li class="nav-item dropdown mb-4">
+        <a
+          class="nav-link dropdown-toggle px-0 align-middle"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fa-regular fa-user"></i>
+          <span class="ms-1 d-none d-sm-inline">Profile</span>
+        </a>
+        <ul class="dropdown-menu">
+          {% if user.profile.id %}
+          <li>
+            <a class="dropdown-item" href="{% url 'edit-user' %}"
+              >Edit User Settings</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="{% url 'edit-profile' user.profile.id %}"
+              >Edit Profile</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'profile' user.profile.id %}"
+              >My Profile</a
+            >
+          </li>
+          {% else %}
+          <li>
+            <a class="dropdown-item" href="{% url 'create-profile' %}"
+              >Create Profile</a
+            >
+          </li>
+          {% endif %}
+        </ul>
+      </li>
+
+      <li class="nav-item mb-4">
+        <a href="{% url 'logout' %}" class="nav-link px-0 align-middle">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span class="ms-1 d-none d-sm-inline">Logout</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="nav-item mb-4">
+        <a href="{% url 'login' %}" class="nav-link px-0 align-middle">
+          <i class="fa-regular fa-user"></i>
+          <span class="ms-1 d-none d-sm-inline">Login/Signup</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

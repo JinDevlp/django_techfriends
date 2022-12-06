@@ -1,0 +1,185 @@
+{% extends 'techfriends/main.html'%} {% block content %} {% load static %}
+<!-- Page content-->
+<div class="container">
+  <div class="row mt-5 justify-content-end">
+    <div class="col-lg-6">
+      <div class="container p-5 text-center">
+        <h1 style="color: #594ae3" class="fw-bolder">
+          Welcome to TechFriends!
+        </h1>
+        <p style="color: #594ae3" class="lead">
+          Only website you need to land a Tech Career
+        </p>
+        {% if user.profile.id %}
+        <a
+          class="btn btn-lg btn-outline-secondary btn-login text-uppercase fw-bold mb-2"
+          type="submit"
+          href="{% url 'create-post'%}"
+          ><i
+            style="color: #594ae3; margin-right: 5px"
+            class="fa-regular fa-square-plus fa-fw"
+          ></i
+          >Post
+        </a>
+        {% elif profile.id is None and request.user.is_authenticated is False %}
+        <a
+          class="btn btn-lg btn-outline-secondary btn-login text-uppercase fw-bold mb-2"
+          type="submit"
+          href="{%  url 'register'%}"
+          ><i
+            style="color: #594ae3; margin-right: 5px"
+            class="fa-regular fa-square-plus fa-fw"
+          ></i
+          >Register
+        </a>
+        {% elif profile.id is None and request.user.is_authenticated is True %}
+        <a
+          class="btn btn-lg btn-outline-secondary btn-login text-uppercase fw-bold mb-2"
+          type="submit"
+          href="{%  url 'create-profile'%}"
+          ><i
+            style="color: #594ae3; margin-right: 5px"
+            class="fa-regular fa-square-plus fa-fw"
+          ></i
+          >Profile
+        </a>
+        {% elif request.user.is_authenticated is False %}
+        <a
+          class="btn btn-lg btn-outline-secondary btn-login text-uppercase fw-bold mb-2"
+          type="submit"
+          href="{% url 'register'%}"
+          ><i
+            style="color: #594ae3; margin-right: 5px"
+            class="fa-regular fa-square-plus fa-fw"
+          ></i
+          >Register
+        </a>
+        {% endif %}
+      </div>
+
+      <!-- for post -->
+      {% for post in object_list %}
+      <div class="card mb-4 text-center">
+        <h3 class="">{{post.title}}</h3>
+        <div class="card-body d-flex flex-row align-items-center">
+          <a href="{% url 'profile' post.author_id %}">
+            <img
+              src="{{ post.author.profile.profile_image.url}}"
+              class="rounded-circle"
+              height="40px"
+              width="40px"
+              alt="avatar"
+            />
+          </a>
+
+          <div
+            class="container"
+            style="
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            "
+          >
+            <h6 class="card-title font-weight-bold mb-2">{{ post.author }}</h6>
+            <a
+              class="text-decoration-none"
+              href="{% url 'post-detail' post.pk %}"
+            >
+              <span class="text-muted"
+                ><i class="fa-regular fa-eye"></i> View</span
+              >
+            </a>
+          </div>
+        </div>
+        <div class="row justify-content-end">
+          {% for category in post.category.all %}
+          <div class="col-md-2">
+            <div class="containertext-center">
+              <a
+                class="text-decoration-none"
+                href="{% url 'category' category %}"
+                ># {{category}} <span class="badge">5</span></a
+              ><br />
+            </div>
+          </div>
+          <!-- user.profile.profile_image.url  -->
+          {% endfor %}
+        </div>
+        <div class="bg-image hover-overlay ripple rounded-0">
+          {% if post.image1.url %}
+          <img
+            class="card-img-top"
+            src="{{ post.image1.url }}"
+            alt="Card image cap"
+          />
+          {% else %}
+          <img
+            class="card-img-top"
+            src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
+            alt="Card image cap"
+          />
+          {% endif %}
+        </div>
+        <!-- Icons -->
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 10px 10px;
+          "
+        >
+          <div>
+            <span class="material-symbols-outlined"> favorite </span>
+          </div>
+          <div>
+            <span class="material-symbols-rounded"> bookmark </span>
+          </div>
+        </div>
+        <!-- Likes -->
+        <!-- Poster -->
+        <div style="text-align: left; margin-left: 10px" class="mb-2">
+          <b>{{ post.author }} </b> {{ post.body|slice:'200' }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Right Side-->
+    <div class="col-lg-4">
+      <div class="card-body d-flex flex-row align-items-center">
+        {% if user.profile.id %}
+        <a
+          class="btn btn-lg text-uppercase fw-bold mb-2"
+          type="submit"
+          href="{% url 'profile' user.profile.pk%}"
+        >
+          <img
+            src="{{ user.profile.profile_image.url }}"
+            class="rounded-circle"
+            height="60px"
+            width="60px"
+            alt="avatar"
+        /></a>
+        {% else %}
+        <img
+          src="{% static 'images/profiles/default_profile.png'%}"
+          class="rounded-circle"
+          height="60px"
+          width="60px"
+          alt="avatar"
+        />
+        {% endif %}
+        <div class="container align-items-center">
+          first_name:
+          <h6>{{user.profile.first_name}}</h6>
+          username:
+          <h6 class="text-muted">{{user.username}}</h6>
+        </div>
+      </div>
+
+      <!-- Instagram information section -->
+    </div>
+  </div>
+</div>
+{% endblock content %}

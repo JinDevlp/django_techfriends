@@ -1,0 +1,167 @@
+{% extends 'techfriends/main.html'%}{% load bootstrap5 %} 
+{% block content %} 
+{% load static %}
+<!-- Page content-->
+<div class="container mt-5">
+  <div class="row mt-5 justify-content-end">
+    <div class="col-lg-6">
+      <!-- Post content-->
+     
+        <!-- Post header-->
+        <header class="mb-2">
+          <!-- Post title-->
+          <div class="container p-5 text-center">
+            
+              <div class="col"><h1 class="fw-bolder mb-1">{{post.title}}</h1></div>
+              {% if user.is_authenticated and user.id == post.author.id %}
+             
+              <div class="col"><a href="{% url 'update-post' post.pk %}" class="nav-link align-middle px-0 text-decoration-none">
+                <i class="fa-regular fa-pen-to-square"></i>
+                <span class="ms-1 d-none d-sm-inline">Edit</span>
+              </a>
+              </div>
+              <div>
+              <a href="{% url 'delete-post' post.pk %}" class="nav-link align-middle px-0 text-decoration-none">
+                <i class="fa-solid fa-trash"></i>
+                <span class="ms-1 d-none d-sm-inline">Delete</span>
+              </a>
+              </div>
+              {% endif %}
+              </div>
+              </header>
+              
+
+          <!-- Post meta content-->
+          <div class="text-muted fst-italic mb-2">{{post.created}}</div>
+          <!-- Post categories-->
+          
+        </header>
+        <!-- Preview image figure-->
+        <figure class="mb-4">
+          {% if post.image1 %}
+          <img
+            class="img-fluid rounded"
+            src="{{post.image1.url}}"
+            alt="..."
+          />
+          {% else %}
+          <img
+            class="img-fluid rounded"
+            src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
+            alt="..."
+          />
+          {% endif %}
+        </figure>
+        <div>
+          <form method="POST" class="form" action="{% url 'like_post' post.pk %}">
+            {% csrf_token %}  {% buttons %}
+            <button type="submit" class="btn btn-primary" name="post_id" value="{{ post.id }}">{{total_likes}}<i class="fa-solid fa-thumbs-up m-2 align-middle  "></i></button>
+            {% endbuttons %}
+          </form>
+          
+        </div>
+        <!-- Post content-->
+        <section class="mb-5">
+          <p class="fs-5 mb-5">{{post.body|safe}}</p>
+         
+          </p>
+          <hr>
+        </section>
+     
+      <!-- Comments section-->
+      <section class="mb-5">
+        <div class="card bg-light">
+          
+          <div class="card-body">
+            <!-- Comment form-->
+           
+            <!-- Single comment-->
+            {% if not post.comments.all %}
+
+            <div class="d-flex">
+              <div class="flex-shrink-0">
+                <img
+                  class="rounded-circle"
+                  src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                  alt="..."
+                />
+              </div>
+              <div class="ms-3">
+                <div class="fw-bold">No Commenters yet</div>
+                No Comments yet...
+              </div>
+            </div>
+            {% else %}
+            {% for comment in post.comments.all %}
+            <div class="d-flex">
+              <div class="flex-shrink-0">
+                <img
+                  class="rounded-circle"
+                  src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                  alt="..."
+                />
+              </div>
+              <div class="ms-3">
+                <div class="fw-bold"></div>
+                <div class="text-muted mb-3">{{comment.date_added}}</div>
+                {{comment.body}}
+                
+              </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      <div class="container  text-center">
+  <a class="btn btn-lg btn-outline-secondary btn-login text-uppercase fw-bold mb-2"
+  type="submit"href="{% url 'add-comment' post.pk%}"
+    ><i
+      style="color: #594ae3; margin-right: 5px"
+      class="fa-regular fa-square-plus fa-fw"
+    ></i
+    >Comment
+  </a>
+  </div>
+      </div>
+    
+     
+    <!-- Right Side-->
+    <div class="col-lg-4">
+      <div class="card-body d-flex flex-row align-items-center">
+        {% if post.author.profile.profile_image.url %}
+        
+        <img
+        src="{{ post.author.profile.profile_image.url }}"
+        class="rounded-circle"
+        height="60px"
+        width="60px"
+        alt="avatar"
+      />
+      {% else %}
+      <img
+        src="{% static 'images/profiles/default_profile.png'% }"
+        class="rounded-circle"
+        height="60px"
+        width="60px"
+        alt="avatar"
+      />
+      {% endif %}
+        
+
+        <div class="container align-items-center">
+          <h6>{{post.author}}</h6>
+          <h6 class="text-muted">{{ post.author.first_name }}</h6>
+        </div>
+        <div>
+          <a href="{% url 'profile' post.author.profile.id%}" style="font-weight: bold" class="text-decoration-none">
+            Profile
+          </a>
+        </div>
+      </div>
+</div>
+      <!-- Instagram information section -->
+    </div>
+  </div>
+
+{% endblock %}

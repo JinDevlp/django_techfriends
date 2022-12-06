@@ -1,0 +1,9 @@
+{% extends 'techfriends/main.html'%} {% block content %} {% load static %}
+<!-- Page content-->
+<!-- if topic exist -->
+<h3>Topic Categories</h3>
+{% for item in topic_list%}
+<li>
+  <a class="dropdown-item" href="{% url 'category' item %}">{{item}}</a>
+</li>
+{% endfor %} {% endblock content %}

@@ -1,0 +1,93 @@
+{% extends 'techfriends/main.html'%} {% load bootstrap5 %} {% block content %}
+{% load static %} {% if user.is_authenticated and user.id == post.author.id %}
+<div class="container mt-5">
+  <!-- fix -->
+  <div class="row mt-5 justify-content-end">
+    <div class="ml-5 d-md-flex col-md-4 col-lg-6 bg-image">
+      <img src="{% static 'images/create-post.png'%}" class="img-fluid" />
+    </div>
+    <div class="col-md-8 col-lg-6">
+      <div class="d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Update Post</h3>
+
+              <!-- Sign In Form -->
+
+              <form method="POST" class="form" enctype="multipart/form-data">
+                {% csrf_token %} {% bootstrap_form form %} {% buttons %}
+                <button type="submit" class="btn btn-primary">Update</button>
+                {% endbuttons %}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="container mt-5">
+  <!-- fix -->
+  <div class="row mt-5 justify-content-end">
+    <div class="ml-5 d-md-flex col-md-4 col-lg-6 bg-image">
+      <img src="{% static 'images/post-create.png'%}" class="img-fluid" />
+    </div>
+    <div class="col-md-8 col-lg-6">
+      <div class="d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Login or Register</h3>
+              <a href="{% url 'register' %}" class="text-decoration-none">
+                <button
+                  class="btn btn-lg btn-primary btn-register text-uppercase fw-bold mb-2"
+                  type="submit"
+                >
+                  Register
+                </button>
+              </a>
+              <a href="{% url 'login' %}" class="login-button">
+                <button
+                  class="btn btn-lg btn-outline-secondary btn-login text-uppercase fw-bold mb-2"
+                  type="submit"
+                >
+                  Login
+                </button>
+              </a>
+
+              <!-- Sign In Form -->
+
+              <div class="card" aria-hidden="true">
+                <img
+                  src="{% static 'images/update_error.png'%}"
+                  class="card-img-top"
+                  alt="..."
+                />
+                <div class="card-body">
+                  <h5 class="card-title placeholder-glow">
+                    <span class="placeholder col-6"></span>
+                  </h5>
+                  <p class="card-text placeholder-glow">
+                    <span class="placeholder col-7"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-6"></span>
+                    <span class="placeholder col-8"></span>
+                  </p>
+                  <a
+                    href="#"
+                    tabindex="-1"
+                    class="btn btn-primary disabled placeholder col-6"
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %} {% endblock content %}

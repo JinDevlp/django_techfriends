@@ -1,0 +1,30 @@
+{% extends 'techfriends/main.html'%} {% load bootstrap5 %} {% block content %}
+{% load static %}
+<div class="container mt-5">
+  <!-- fix -->
+  <div class="row mt-5 justify-content-end">
+    <div class="ml-5 d-md-flex col-md-4 col-lg-6 bg-image">
+      <img src="{% static 'images/register.png'%}" class="img-fluid" />
+    </div>
+    <div class="col-md-8 col-lg-6">
+      <div class="d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Edit Profile</h3>
+
+              <!-- Sign In Form -->
+
+              <form method="POST" class="form" enctype="multipart/form-data">
+                {% csrf_token %} {% bootstrap_form form %} {% buttons %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                {% endbuttons %}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

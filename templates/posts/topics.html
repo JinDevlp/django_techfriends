@@ -1,0 +1,301 @@
+{% extends 'techfriends/main.html'%} {% block content %} {% load static %}
+<!-- Page content-->
+<!-- if topic exist -->
+{% if topic_posts %}
+<div class="container">
+  <div class="row mt-5 justify-content-end">
+    <div class="col-lg-6">
+      <div class="container p-3 text-center">
+        <h1 style="color: #594ae3" class="fw-bolder">
+          Welcome to TechFriends!
+        </h1>
+        <p style="color: #594ae3" class="lead">
+          Only website you need to land a Tech Career
+        </p>
+        {% if user.profile.id %}
+        <a
+          class="btn btn-lg btn-outline-secondary btn-login text-uppercase fw-bold mb-2"
+          type="submit"
+          href="{% url 'create-post'%}"
+          ><i
+            style="color: #594ae3; margin-right: 5px"
+            class="fa-regular fa-square-plus fa-fw"
+          ></i
+          >Post
+        </a>
+        {% elif profile.id is None %}
+        <a
+          class="btn btn-lg btn-outline-secondary btn-login text-uppercase fw-bold mb-2"
+          type="submit"
+          href="{% url 'create-profile'%}"
+          ><i
+            style="color: #594ae3; margin-right: 5px"
+            class="fa-regular fa-square-plus fa-fw"
+          ></i
+          >Profile
+        </a>
+        {% elif request.user.is_authenticated is False %}
+        <a
+          class="btn btn-lg btn-outline-secondary btn-login text-uppercase fw-bold mb-2"
+          type="submit"
+          href="{% url 'register'%}"
+          ><i
+            style="color: #594ae3; margin-right: 5px"
+            class="fa-regular fa-square-plus fa-fw"
+          ></i
+          >Register
+        </a>
+        {% endif %}
+      </div>
+
+      <!-- Showing Topic list  -->
+      <div class="container pb-3 text-center">
+        <h3 style="color: #594ae3" class="fw-bolder">
+          Showing {{ category.title }}
+        </h3>
+      </div>
+      <!-- End Showing Topic list  -->
+
+      <!-- for post -->
+      {% for post in topic_posts %}
+      <div class="card mb-4 text-center">
+        <h3 class="">{{post.title}}</h3>
+        <div class="card-body d-flex flex-row align-items-center">
+          <img
+            src="{{user.profile.profile_image.url }}"
+            class="rounded-circle"
+            height="40px"
+            width="40px"
+            alt="avatar"
+          />
+          <div
+            class="container"
+            style="
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            "
+          >
+            <h6 class="card-title font-weight-bold mb-2">{{ post.author }}</h6>
+            <a
+              class="text-decoration-none"
+              href="{% url 'post-detail' post.pk %}"
+            >
+              <span class="text-muted"
+                ><i class="fa-regular fa-eye"></i> View</span
+              >
+            </a>
+          </div>
+        </div>
+        <div class="row justify-content-end">
+          {% for category in post.category.all %}
+          <div class="col-md-2">
+            <div class="containertext-center">
+              <a
+                class="text-decoration-none"
+                href="{% url 'category' category %}"
+                ># {{category}} <span class="badge">5</span></a
+              ><br />
+            </div>
+          </div>
+
+          {% endfor %}
+        </div>
+
+        <div class="bg-image hover-overlay ripple rounded-0">
+          <img
+            class="card-img-top"
+            src="http://www.quickmeme.com/img/32/320f344ca08f5d22d4ba5bea6432ea87b194bc2b3f11cac9f10b899f1dde601b.jpg"
+            alt="Card image cap"
+          />
+        </div>
+        <!-- Icons -->
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 10px 10px;
+          "
+        >
+          <div>
+            <span class="material-symbols-outlined"> favorite </span>
+            <span class="material-symbols-rounded"> mode_comment </span>
+            <span class="material-symbols-rounded"> send </span>
+          </div>
+          <div>
+            <span class="material-symbols-rounded"> bookmark </span>
+          </div>
+        </div>
+        <!-- Likes -->
+        <div style="text-align: left; margin-left: 10px" class="mb-2">
+          liked by <b>Jin</b> and <b> 1234 others</b>
+        </div>
+        <!-- Poster -->
+        <div style="text-align: left; margin-left: 10px" class="mb-2">
+          <b>{{ post.author }} </b> {{ post.body|slice:'200' }}
+        </div>
+
+        <!-- Comments -->
+        <div style="text-align: left; margin-left: 10px" class="mb-2">
+          <b>Sarah </b> I love Django and this meme
+        </div>
+
+        <!-- Make comments  -->
+
+        <div class="d-flex flex-row add-comment-section mt-2">
+          <input
+            type="text"
+            style="box-shadow: none; outline: none"
+            class="form-control mr-3"
+            placeholder="Add comment..."
+          /><button class="btn btn-secondary" type="button">Comment</button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Right Side-->
+    <div class="col-lg-4">
+      <div class="card-body d-flex flex-row align-items-center">
+        <img
+          src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg"
+          class="rounded-circle"
+          height="60px"
+          width="60px"
+          alt="avatar"
+        />
+        <div class="container align-items-center">
+          <h6>instagram_clone23</h6>
+          <h6 class="text-muted">{{user.username}}</h6>
+        </div>
+        <div>
+          <a href="" style="font-weight: bold" class="text-decoration-none">
+            Switch
+          </a>
+        </div>
+      </div>
+      <!-- Suggestions for you -->
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        "
+      >
+        <div>
+          <span style="font-weight: bold" class="text-muted">
+            Suggestions for you
+          </span>
+        </div>
+        <a
+          href=""
+          style="font-weight: bold"
+          class="text-decoration-none link-dark"
+          >See all</a
+        >
+      </div>
+      <!-- Recommended Friends -->
+      <div class="card-body d-flex flex-row align-items-center">
+        <img
+          src="https://www.shutterstock.com/image-vector/man-icon-vector-260nw-1040084344.jpg"
+          class="rounded-circle"
+          height="40px"
+          width="40px"
+          alt="avatar"
+        />
+        <div class="container align-items-center">
+          <h6>california_dream</h6>
+          <p class="text-muted" style="font-size: 14px">
+            Followed by Haesoo_k and +4 more
+          </p>
+        </div>
+        <div>
+          <a href="" style="font-weight: bold" class="text-decoration-none">
+            Follow
+          </a>
+        </div>
+      </div>
+      <!-- Recommended Friends -->
+      <div class="card-body d-flex flex-row align-items-center">
+        <img
+          src="https://pub-static.fotor.com/assets/projects/pages/d5bdd0513a0740a8a38752dbc32586d0/fotor-03d1a91a0cec4542927f53c87e0599f6.jpg"
+          class="rounded-circle"
+          height="40px"
+          width="40px"
+          alt="avatar"
+        />
+        <div class="container align-items-center">
+          <h6>sandiego_surfin</h6>
+          <p class="text-muted" style="font-size: 14px">
+            Followed by May_luv and +4 more
+          </p>
+        </div>
+        <div>
+          <a href="" style="font-weight: bold" class="text-decoration-none">
+            Follow
+          </a>
+        </div>
+      </div>
+      <!-- Recommended Friends -->
+      <div class="card-body d-flex flex-row align-items-center">
+        <img
+          src="https://e7.pngegg.com/pngimages/887/945/png-clipart-kakaotalk-kakao-friends-emoticon-kakao-ryan-smiley-sticker-thumbnail.png"
+          class="rounded-circle"
+          height="40px"
+          width="40px"
+          alt="avatar"
+        />
+        <div class="container align-items-center">
+          <h6>kakakeke_123</h6>
+          <p class="text-muted" style="font-size: 14px">
+            Followed by May_luv and +2 more
+          </p>
+        </div>
+        <div>
+          <a href="" style="font-weight: bold" class="text-decoration-none">
+            Follow
+          </a>
+        </div>
+      </div>
+      <!-- Instagram information section -->
+    </div>
+  </div>
+</div>
+<!-- end if category exist -->
+
+<!-- if category does not exit -->
+{% else %}
+<div class="container">
+  <div class="row mt-5 justify-content-end">
+    <div class="col-lg-6">
+      <div class="container p-5 text-center">
+        <h1 style="color: #594ae3" class="fw-bolder">
+          Sorry, that category does not exist!
+        </h1>
+        <p style="color: #594ae3" class="lead">
+          Only website you need to land a Tech Career
+        </p>
+        {% if request.user.is_authenticated %}
+        <a class="btn btn-lg btn-secondary" href="{% url 'create-post'%}"
+          ><i
+            style="color: white; margin-right: 5px"
+            class="fa-regular fa-square-plus fa-fw"
+          ></i
+          >Write a Post
+        </a>
+        {% else %}
+        <a href="{% url 'register' %}">
+          <button
+            class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2"
+            type="submit"
+          >
+            Register
+          </button>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %} {% endblock content %}
